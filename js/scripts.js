@@ -1,4 +1,5 @@
 const mural = document.getElementById("mural");
+const cards = JSON.parse(localStorage.getItem("cards")) || [];
 
 function createCard() {
   const titulo = document.getElementById("exampleInputEmail1");
@@ -32,13 +33,29 @@ function createCard() {
   clearInput(titulo, conteudo);
 }
 
+//limpa os campos de input
 function clearInput(title, data) {
   title.value = "";
   data.value = "";
 }
 
-function removeCard() {}
-
-function addCard(newCard) {
-  mural.innerHTML += newCard;
+//Salva as cards no LOCAL STORAGE
+function saveCards() {
+  localStorage.setItem("cards", JSON.stringify(cards));
 }
+
+//mostra as CARTAS
+function showCards() {
+  for (const card of cards) {
+    mural.innerHTML += card;
+  }
+}
+
+//ADICIONA as cards no mural e SALVA NO LOCAL STORAGE
+function addCard(newCard) {
+  cards.push(newCard);
+  mural.innerHTML += newCard;
+  saveCards();
+}
+
+showCards();
